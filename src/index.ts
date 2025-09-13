@@ -23,53 +23,57 @@ function dynamicClock() {
 
   const handleMultipleLaps = () => {
     const lapTime = document.createElement("div");
-    const deleteBtn = document.createElement('button');
-    deleteBtn.innerText = "Delete Lap"
-    if(clock){
-        clock.appendChild(lapTime);
-        clock.appendChild(deleteBtn);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "Delete Lap";
+    if (clock) {
+      clock.appendChild(lapTime);
+      clock.appendChild(deleteBtn);
     }
     lapTime.innerText = saveTime;
-    deleteBtn.addEventListener('click', ()=>{
-        lapTime.remove();
-        deleteBtn.remove();
+    deleteBtn.addEventListener("click", () => {
+      lapTime.remove();
+      deleteBtn.remove();
     });
   };
 
   submitBtn.addEventListener("click", function () {
     handleMultipleLaps();
   });
-
-
 }
 
 const StopWatch = () => {
+  const TimerWatch = document.getElementById("stop-watch");
 
-    const TimerWatch = document.getElementById("stop-watch");
+  const startBtn = document.createElement("button");
+  const stopBtn = document.createElement("button");
+  const timer = document.createElement("div");
+  startBtn.innerText = "start";
+  stopBtn.innerText = "stop";
 
-    const startBtn = document.createElement('button');
-    const timer = document.createElement("div");
-    startBtn.innerText = "start"
+  let timing = 0;
 
-    TimerWatch?.appendChild(timer);
-    TimerWatch?.appendChild(startBtn);
-    
-    let counter = 0;
-    startBtn.addEventListener('click', ()=>{
-        handleStopWatch();
-    })
+  TimerWatch?.appendChild(timer);
+  TimerWatch?.appendChild(startBtn);
+  TimerWatch?.appendChild(stopBtn);
 
-    function handleStopWatch(){
-        setInterval(() => {
-          ++counter;
-          timer.innerHTML = `${counter}`;
-        }, 1000);
-    }
+  let counter = 0;
+  startBtn.addEventListener("click", () => {
+    startBtn.disabled = true;
+    handleStopWatch();
+  });
 
-    
+  stopBtn.addEventListener("click", function () {
+    clearInterval(timing);
+    startBtn.disabled = false;
+  });
 
-    
-}
+  function handleStopWatch() {
+    timing = setInterval(() => {
+      counter++;
+      timer.innerHTML = `${counter}`;
+    }, 1000);
+  }
+};
 
 dynamicClock();
 StopWatch();
