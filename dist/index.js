@@ -18,14 +18,14 @@ function dynamicClock() {
     }
     const handleMultipleLaps = () => {
         const lapTime = document.createElement("div");
-        const deleteBtn = document.createElement('button');
+        const deleteBtn = document.createElement("button");
         deleteBtn.innerText = "Delete Lap";
         if (clock) {
             clock.appendChild(lapTime);
             clock.appendChild(deleteBtn);
         }
         lapTime.innerText = saveTime;
-        deleteBtn.addEventListener('click', () => {
+        deleteBtn.addEventListener("click", () => {
             lapTime.remove();
             deleteBtn.remove();
         });
@@ -36,18 +36,27 @@ function dynamicClock() {
 }
 const StopWatch = () => {
     const TimerWatch = document.getElementById("stop-watch");
-    const startBtn = document.createElement('button');
+    const startBtn = document.createElement("button");
+    const stopBtn = document.createElement("button");
     const timer = document.createElement("div");
     startBtn.innerText = "start";
+    stopBtn.innerText = "stop";
+    let timing = 0;
     TimerWatch === null || TimerWatch === void 0 ? void 0 : TimerWatch.appendChild(timer);
     TimerWatch === null || TimerWatch === void 0 ? void 0 : TimerWatch.appendChild(startBtn);
+    TimerWatch === null || TimerWatch === void 0 ? void 0 : TimerWatch.appendChild(stopBtn);
     let counter = 0;
-    startBtn.addEventListener('click', () => {
+    startBtn.addEventListener("click", () => {
+        startBtn.disabled = true;
         handleStopWatch();
     });
+    stopBtn.addEventListener("click", function () {
+        clearInterval(timing);
+        startBtn.disabled = false;
+    });
     function handleStopWatch() {
-        setInterval(() => {
-            ++counter;
+        timing = setInterval(() => {
+            counter++;
             timer.innerHTML = `${counter}`;
         }, 1000);
     }
